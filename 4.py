@@ -28,8 +28,11 @@ if __name__ == "__main__":
     y_pred = lr.predict(x_test.values.reshape(-1, 1))
     print("Mean Squared Error:", metrics.mean_squared_error(y_test, y_pred))
 
-    save_lr = pickle.dumps(lr)
-    load_lr = pickle.loads(save_lr)
+    with open("models/model.pkl", "wb") as f:
+        pickle.dump(lr, f)
+
+    with open("models/model.pkl", "rb") as f:
+        load_lr = pickle.load(f)
 
     hour_12 = load_lr.predict([[12]])
     hour_14 = load_lr.predict([[14]])
